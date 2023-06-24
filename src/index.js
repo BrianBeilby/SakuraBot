@@ -2,6 +2,7 @@ require("dotenv").config();
 const { Client, IntentsBitField } = require("discord.js");
 const mongoose = require("mongoose");
 const eventHandler = require("./handlers/eventHandler");
+const { Player } = require("discord-player");
 
 const client = new Client({
   intents: [
@@ -10,14 +11,21 @@ const client = new Client({
     IntentsBitField.Flags.GuildMessages,
     IntentsBitField.Flags.GuildPresences,
     IntentsBitField.Flags.MessageContent,
+    IntentsBitField.Flags.GuildVoiceStates,
   ],
 });
 
 (async () => {
   try {
-    mongoose.set('strictQuery', false);
+    mongoose.set("strictQuery", false);
     await mongoose.connect(process.env.MONGODB_URI, { keepAlive: true });
     console.log("✅ Connected to DB!");
+
+    // this is the entrypoint for discord-player based application
+    const player = new Player(client);
+
+    // This method will load all the extractors from the @discord-player/extractor package
+    await player.extractors.loadDefault();
 
     eventHandler(client);
 
