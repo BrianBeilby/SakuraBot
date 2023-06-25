@@ -2,6 +2,7 @@ const {
   Client,
   Interaction,
   ApplicationCommandOptionType,
+  EmbedBuilder,
 } = require("discord.js");
 const { useMasterPlayer } = require("discord-player");
 
@@ -50,7 +51,7 @@ module.exports = {
           },
         });
 
-        return interaction.editReply(`**${track.title}** enqueued!`);
+        return interaction.editReply(`✅ ${track.title} has been added to the queue!`);
       } catch (error) {
         return interaction.followUp(`😡 Something went wrong: ${error}`);
       }
