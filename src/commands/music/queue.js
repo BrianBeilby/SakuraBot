@@ -1,4 +1,4 @@
-const { Client, Interaction } = require('discord.js');
+const { Client, Interaction, EmbedBuilder } = require('discord.js');
 const { useQueue } = require("discord-player");
 
 module.exports = {
@@ -18,6 +18,23 @@ module.exports = {
         const queue = useQueue(interaction.guild.id);
 
         const tracks = queue.tracks.toArray();
-        console.log(tracks);
+
+        // iterate through the tracks array and add each track's title and url to a fields array
+        const fields = [];
+        for (let i = 0; i < tracks.length; i++) {
+            fields.push({
+                name: '\u200b',
+                value: `**${i + 1}:** [${tracks[i].title}](${tracks[i].url}).`,
+            });
+        }
+
+        const embed = {
+            color: 0x800080,
+            title: "🎶 **|** Queue",
+            description: `**Currently Playing:** [**${queue.currentTrack.title}**](${queue.currentTrack.url}).`,
+            fields: fields,
+        };
+
+        return interaction.reply({ embeds: [embed] });
     },
 };

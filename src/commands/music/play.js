@@ -51,9 +51,19 @@ module.exports = {
           },
         });
 
-        return interaction.editReply(`✅ ${track.title} has been added to the queue!`);
+        const embed = new EmbedBuilder()
+          .setDescription(
+            `✅ **|** Queued: [**${track.title}**](${track.url}).`
+          )
+          .setColor("Green");
+
+        return interaction.editReply({ embeds: [embed] });
       } catch (error) {
-        return interaction.followUp(`😡 Something went wrong: ${error}`);
+        const embed = new EmbedBuilder()
+          .setDescription(`😡 **|** Something went wrong: ${error}`)
+          .setColor("Red");
+
+        return interaction.followUp({ embeds: [embed] });
       }
     }
   },

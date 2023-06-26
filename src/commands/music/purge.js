@@ -1,28 +1,32 @@
-const { Client, Interaction } = require('discord.js');
+const { Client, Interaction, EmbedBuilder } = require("discord.js");
 const { useQueue } = require("discord-player");
 
 module.exports = {
-    name: "purge",
-    description: "Removes all songs from the queue!",
-    // options: Object[],
-    // devOnly: Boolean,
-    // testOnly: Boolean,
-    // deleted: Boolean,
+  name: "purge",
+  description: "Removes all songs from the queue!",
+  // options: Object[],
+  // devOnly: Boolean,
+  // testOnly: Boolean,
+  // deleted: Boolean,
 
-    /**
-     * 
-     * @param {Client} client 
-     * @param {Interaction} interaction 
-     */
-    callback: async (client, interaction) => {
-        const queue = useQueue(interaction.guild.id);
+  /**
+   *
+   * @param {Client} client
+   * @param {Interaction} interaction
+   */
+  callback: async (client, interaction) => {
+    const queue = useQueue(interaction.guild.id);
 
-        if (!queue || !queue.isPlaying()) {
-            return interaction.reply("There is no song playing!");
-        }
+    if (!queue || !queue.isPlaying()) {
+      return interaction.reply("There is no song playing!");
+    }
 
-        queue.delete();
+    queue.delete();
 
-        return interaction.reply("The queue has been purged.");
-    },
+    const embed = new EmbedBuilder()
+      .setDescription(`✅ **|** Purged the queue.`)
+      .setColor("Green");
+
+    return interaction.reply({ embeds: [embed] });
+  },
 };

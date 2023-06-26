@@ -2,8 +2,8 @@ const { Client, Interaction, EmbedBuilder } = require("discord.js");
 const { useQueue } = require("discord-player");
 
 module.exports = {
-  name: "skip",
-  description: "Skips the current song!",
+  name: "resume",
+  description: "Resumes the queue!",
   // options: Object[],
   // devOnly: Boolean,
   // testOnly: Boolean,
@@ -21,11 +21,10 @@ module.exports = {
       return interaction.reply("There is no song playing!");
     }
 
-    queue.node.skip();
+    queue.node.setPaused(false);
 
-    const track = queue.currentTrack;
     const embed = new EmbedBuilder()
-      .setDescription(`✅ **|** Skipped: [**${track.title}**](${track.url}).`)
+      .setDescription(`✅ **|** Resumed the queue.`)
       .setColor("Green");
 
     return interaction.reply({ embeds: [embed] });

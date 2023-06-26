@@ -1,18 +1,35 @@
-const { useQueue} = require('discord-player');
-const { EmbedBuilder } = require('discord.js');
+const { useQueue } = require("discord-player");
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require("discord.js");
 
 module.exports = (client, interaction) => {
-    const queue = useQueue(interaction.guild.id);
-    const track = queue.currentTrack;
-    
-    const embed = new EmbedBuilder()
-          .setColor('Purple')
-          .setThumbnail(track.raw.thumbnail)
-          .addFields(
-            { name: "Title", value: track.title, inline: true },
-            { name: "Artist", value: track.author, inline: true },
-            { name: "Duration", value: track.duration, inline: true },
-          );
+  const queue = useQueue(interaction.guild.id);
+  const track = queue.currentTrack;
 
-          queue.metadata.channel.send({ embeds: [embed] });
+  const embed = new EmbedBuilder()
+    .setDescription(`🎶 **|** **Now Playing:** ${track.title}`)
+    .setColor("Purple")
+    .setImage(track.thumbnail || client.user.displayAvatarURL())
+    .addFields(
+      { name: "Artist", value: track.author, inline: true },
+      { name: "Duration", value: track.duration, inline: true }
+    );
+
+  const skip = new ButtonBuilder()
+    .setCustomId("skip")
+    .setLabel("Skip")
+    .setStyle("Primary");
+
+  const pause = new ButtonBuilder()
+    .setCustomId("pause")
+    .setLabel("Pause")
+    .setStyle("Danger");
+
+  const resume = new ButtonBuilder()
+    .setCustomId("resume")
+    .setLabel("Resume")
+    .setStyle("Success");
+
+  const row = new ActionRowBuilder().addComponents(skip, pause, resume);
+
+  queue.metadata.channel.send({ embeds: [embed], components: [row] });
 };
