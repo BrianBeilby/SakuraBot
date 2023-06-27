@@ -13,6 +13,10 @@ const themeSongSchema = new Schema({
         type: String,
         required: true,
     },
+    status: {
+        type: Boolean,
+        default: true,
+    },
 });
 
 module.exports = model('ThemeSong', themeSongSchema);

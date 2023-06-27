@@ -65,6 +65,7 @@ module.exports = {
             userId: user.id,
             guildId: interaction.guild.id,
             song: track.url,
+            status: true,
           });
         }
 
