@@ -15,6 +15,7 @@ function getRandomXp(min, max) {
  * @param {Message} message
  */
 module.exports = async (client, message) => {
+  message = message[0];
   if (
     !message.inGuild() ||
     message.author.bot ||

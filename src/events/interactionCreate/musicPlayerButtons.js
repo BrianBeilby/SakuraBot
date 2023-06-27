@@ -7,6 +7,7 @@ const { useQueue } = require("discord-player");
  * @param {Interaction} interaction
  */
 module.exports = async (client, interaction) => {
+  interaction = interaction[0];
   if (!interaction.isButton()) return;
 
   const queue = useQueue(interaction.guild.id);
