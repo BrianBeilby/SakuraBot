@@ -55,7 +55,7 @@ module.exports = async (client) => {
       } else if (type === "context-menu") {
         // Process context menu commands
         const existingCommand = await applicationCommands.cache.find(
-          (cmd) => cmd.name === name && cmd.type === ApplicationCommandType.Message
+          (cmd) => cmd.name === name
         );
 
         if (existingCommand) {
@@ -65,7 +65,7 @@ module.exports = async (client) => {
             continue;
           }
 
-          if (areCommandsDifferent(existingCommand, localCommand)) {
+          if (localCommand.edited) {
             await applicationCommands.edit(existingCommand.id, {
               name,
               type: ApplicationCommandType.Message,

@@ -3,7 +3,6 @@ const getLocalCommands = require("../../utils/getLocalCommands");
 
 module.exports = async (client, interaction) => {
   interaction = interaction[0];
-  if (!interaction.isChatInputCommand()) return;
 
   const localCommands = getLocalCommands();
 
