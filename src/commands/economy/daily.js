@@ -6,6 +6,7 @@ const dailyAmount = 1000;
 module.exports = {
   name: "daily",
   description: "Gives you your daily reward!",
+  type: "slash",
 
   /**
    *

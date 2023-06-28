@@ -50,6 +50,7 @@ module.exports = {
 
     name: 'ban',
     description: 'Bans a member from the server.',
+    type: "slash",
     // devOnly: Boolean,
     // testOnly: Boolean,
     options: [

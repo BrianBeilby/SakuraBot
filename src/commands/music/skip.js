@@ -4,6 +4,7 @@ const { useQueue } = require("discord-player");
 module.exports = {
   name: "skip",
   description: "Skips the current song!",
+  type: "slash",
   // options: Object[],
   // devOnly: Boolean,
   // testOnly: Boolean,

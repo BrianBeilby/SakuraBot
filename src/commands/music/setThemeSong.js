@@ -10,6 +10,7 @@ const { useMasterPlayer } = require("discord-player");
 module.exports = {
   name: "set-theme-song",
   description: "Sets the theme song for the specified user!",
+  type: "slash",
   options: [
     {
       name: "user",

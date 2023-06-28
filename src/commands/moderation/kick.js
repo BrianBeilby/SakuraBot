@@ -50,6 +50,7 @@ module.exports = {
 
     name: 'kick',
     description: 'Kicks a member from the server.',
+    type: "slash",
     // devOnly: Boolean,
     // testOnly: Boolean,
     options: [

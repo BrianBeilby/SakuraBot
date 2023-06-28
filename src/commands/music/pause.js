@@ -4,6 +4,7 @@ const { useQueue } = require("discord-player");
 module.exports = {
   name: "pause",
   description: "Pauses the queue!",
+  type: "slash",
   // options: Object[],
   // devOnly: Boolean,
   // testOnly: Boolean,

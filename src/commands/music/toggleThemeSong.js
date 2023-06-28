@@ -4,6 +4,7 @@ const ThemeSong = require("../../models/ThemeSong");
 module.exports = {
   name: "toggle-theme-song",
   description: "Toggles the user's theme song feature between on and off!",
+  type: "slash",
   // options: Object[],
   // devOnly: Boolean,
   // testOnly: Boolean,

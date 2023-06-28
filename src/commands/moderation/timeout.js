@@ -91,6 +91,7 @@ module.exports = {
 
   name: "timeout",
   description: "Timeout a user.",
+  type: "slash",
   options: [
     {
       name: "target-user",

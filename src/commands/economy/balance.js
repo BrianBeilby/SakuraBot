@@ -44,6 +44,7 @@ module.exports = {
 
   name: "balance",
   description: "See your/someone else's balance.",
+  type: "slash",
   options: [
     {
       name: "user",

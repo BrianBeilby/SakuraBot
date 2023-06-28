@@ -4,6 +4,7 @@ const { useQueue } = require("discord-player");
 module.exports = {
   name: "purge",
   description: "Removes all songs from the queue!",
+  type: "slash",
   // options: Object[],
   // devOnly: Boolean,
   // testOnly: Boolean,

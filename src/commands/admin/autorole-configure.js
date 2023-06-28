@@ -52,6 +52,7 @@ module.exports = {
 
   name: "autorole-configure",
   description: "Configure the autorole for the server.",
+  type: "slash",
   options: [
     {
       name: "role",

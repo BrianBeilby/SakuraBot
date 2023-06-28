@@ -1,16 +1,15 @@
-const insulter = require('insult');
 const { Client, Interaction } = require('discord.js');
 
 module.exports = {
-    name: "pack",
-    description: "Boutta pack you real quick!",
-    type: "slash",
+    name: "Translate",
+    type: "context-menu",
     // devOnly: Boolean,
     // testOnly: Boolean,
     // options: Object[],
     // deleted: Boolean,
   
     callback: (client, interaction) => {
-      interaction.reply(insulter.Insult());
+      const targetMessage = interaction.targetMessage;
+      console.log(targetMessage);
     },
   };

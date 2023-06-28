@@ -9,6 +9,7 @@ const { useMasterPlayer } = require("discord-player");
 module.exports = {
   name: "play",
   description: "Plays a song!",
+  type: "slash",
   options: [
     {
       name: "query",

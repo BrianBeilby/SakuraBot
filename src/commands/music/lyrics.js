@@ -5,6 +5,7 @@ const { useQueue } = require("discord-player");
 module.exports = {
   name: "lyrics",
   description: "Displays the lyrics of the current song!",
+  type: "slash",
   // options: Object[],
   // devOnly: Boolean,
   // testOnly: Boolean,

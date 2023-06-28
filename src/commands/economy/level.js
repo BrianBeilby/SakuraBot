@@ -74,6 +74,7 @@ module.exports = {
 
   name: "level",
   description: "Shows your/someone's level.",
+  type: "slash",
   options: [
     {
       name: "target-user",
