@@ -4,6 +4,7 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require("discord.js");
 module.exports = (client, interaction) => {
   const queue = useQueue(interaction.guild.id);
   const track = queue.currentTrack;
+  const isThemeSong = track?.isThemeSong;
 
   const embed = new EmbedBuilder()
     .setDescription(`🎶 **|** **Now Playing:** ${track.title}`)
@@ -32,4 +33,11 @@ module.exports = (client, interaction) => {
   const row = new ActionRowBuilder().addComponents(skip, pause, resume);
 
   queue.metadata.channel.send({ embeds: [embed], components: [row] });
+
+  if (isThemeSong) {
+    // Stop the player after 10 seconds
+    setTimeout(() => {
+      queue.node.skip();
+    }, 10000);
+  }
 };

@@ -1,6 +1,5 @@
 const { Client, Interaction, EmbedBuilder } = require("discord.js");
 const { useMasterPlayer } = require("discord-player");
-const { useQueue } = require("discord-player");
 const ThemeSong = require("../../models/ThemeSong");
 const cooldowns = new Set();
 
@@ -34,12 +33,7 @@ module.exports = async (client, voiceStates) => {
               }
             );
 
-            const queue = useQueue(oldState.guild.id);
-
-            // Stop the player after 10 seconds
-            setTimeout(() => {
-              queue.node.skip();
-            }, 10000);
+            track.isThemeSong = true;
 
             const embed = new EmbedBuilder()
               .setDescription(

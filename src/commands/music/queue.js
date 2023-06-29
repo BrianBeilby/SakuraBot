@@ -17,6 +17,7 @@ module.exports = {
      */
     callback: async (client, interaction) => {
         const queue = useQueue(interaction.guild.id);
+        if (!queue) return interaction.reply("There is nothing in the queue!");
 
         const tracks = queue.tracks.toArray();
 
