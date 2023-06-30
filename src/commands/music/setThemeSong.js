@@ -5,7 +5,7 @@ const {
   EmbedBuilder,
 } = require("discord.js");
 const ThemeSong = require("../../models/ThemeSong");
-const { useMasterPlayer } = require("discord-player");
+const { useMainPlayer } = require("discord-player");
 
 module.exports = {
   name: "set-theme-song",
@@ -37,7 +37,7 @@ module.exports = {
   callback: async (client, interaction) => {
     const user = interaction.options.getUser("user", true);
     const song = interaction.options.getString("song", true);
-    const player = useMasterPlayer();
+    const player = useMainPlayer();
 
     await interaction.deferReply();
     const searchResult = await player.search(song, {

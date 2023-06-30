@@ -4,7 +4,7 @@ const {
   ApplicationCommandOptionType,
   EmbedBuilder,
 } = require("discord.js");
-const { useMasterPlayer } = require("discord-player");
+const { useMainPlayer } = require("discord-player");
 
 module.exports = {
   name: "play",
@@ -28,7 +28,7 @@ module.exports = {
    * @param {Interaction} interaction
    */
   callback: async (client, interaction) => {
-    const player = useMasterPlayer();
+    const player = useMainPlayer();
     const channel = interaction.member.voice.channel;
 
     if (!channel)
@@ -49,6 +49,10 @@ module.exports = {
         const { track } = await player.play(channel, searchResult, {
           nodeOptions: {
             metadata: interaction,
+            leaveOnEnd: false,
+            leaveOnEmpty: true,
+            leaveOnEmptyCooldown: 5,
+            leaveOnStop: true,
           },
         });
 

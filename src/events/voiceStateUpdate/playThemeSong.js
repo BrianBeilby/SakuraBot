@@ -1,16 +1,15 @@
 const { Client, Interaction, EmbedBuilder } = require("discord.js");
-const { useMasterPlayer } = require("discord-player");
+const { useMainPlayer } = require("discord-player");
 const ThemeSong = require("../../models/ThemeSong");
-const cooldowns = new Set();
 
 module.exports = async (client, voiceStates) => {
   const oldState = voiceStates[0];
   const newState = voiceStates[1];
 
-  const player = useMasterPlayer();
+  const player = useMainPlayer();
 
   // User joined channel
-  if (oldState && !cooldowns.has(oldState.member.user.id)) {
+  if (oldState) {
     if (!oldState.member.user.bot) {
       if (oldState.channelId === undefined || oldState.channelId === null) {
         if (newState.channelId !== undefined && newState.channelId !== null) {
@@ -21,6 +20,12 @@ module.exports = async (client, voiceStates) => {
           });
 
           if (!themeSong || !themeSong.status) return;
+
+          const twelveHoursAgo = new Date(Date.now() - 12 * 60 * 60 * 1000);
+
+          if (themeSong.timeLastPlayed && themeSong.timeLastPlayed > twelveHoursAgo) {
+            return;
+          }
 
           try {
             const { track } = await player.play(
@@ -45,10 +50,8 @@ module.exports = async (client, voiceStates) => {
               channel.send({ embeds: [embed] });
             }
 
-            cooldowns.add(oldState.member.user.id);
-            setTimeout(() => {
-              cooldowns.delete(oldState.member.user.id);
-            }, 4.32e7);
+            themeSong.timeLastPlayed = new Date();
+            await themeSong.save();
           } catch (error) {
             const embed = new EmbedBuilder()
               .setDescription(`😡 **|** Something went wrong: ${error}`)

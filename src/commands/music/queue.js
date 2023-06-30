@@ -18,8 +18,8 @@ module.exports = {
     callback: async (client, interaction) => {
         const queue = useQueue(interaction.guild.id);
         if (!queue) return interaction.reply("There is nothing in the queue!");
-
         const tracks = queue.tracks.toArray();
+        if (tracks.length === 0) return interaction.reply("There is nothing in the queue!");
 
         // iterate through the tracks array and add each track's title and url to a fields array
         const fields = [];

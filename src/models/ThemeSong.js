@@ -17,6 +17,9 @@ const themeSongSchema = new Schema({
         type: Boolean,
         default: true,
     },
+    timeLastPlayed: {
+        type: Date,
+    },
 });
 
 module.exports = model('ThemeSong', themeSongSchema);
