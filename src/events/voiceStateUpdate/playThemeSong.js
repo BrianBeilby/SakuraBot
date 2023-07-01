@@ -23,7 +23,10 @@ module.exports = async (client, voiceStates) => {
 
           const twelveHoursAgo = new Date(Date.now() - 12 * 60 * 60 * 1000);
 
-          if (themeSong.timeLastPlayed && themeSong.timeLastPlayed > twelveHoursAgo) {
+          if (
+            themeSong.timeLastPlayed &&
+            themeSong.timeLastPlayed > twelveHoursAgo
+          ) {
             return;
           }
 
@@ -34,6 +37,7 @@ module.exports = async (client, voiceStates) => {
               {
                 nodeOptions: {
                   metadata: newState,
+                  leaveOnEnd: false,
                 },
               }
             );

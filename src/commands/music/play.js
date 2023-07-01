@@ -50,9 +50,6 @@ module.exports = {
           nodeOptions: {
             metadata: interaction,
             leaveOnEnd: false,
-            leaveOnEmpty: true,
-            leaveOnEmptyCooldown: 5,
-            leaveOnStop: true,
           },
         });
 

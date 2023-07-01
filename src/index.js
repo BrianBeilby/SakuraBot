@@ -18,15 +18,15 @@ const client = new Client({
 const process = require("node:process");
 
 process.on("unhandledRejection", async (reason, promise) => {
-  console.log('Unhandled Rejection at:', promise, 'reason:', reason);
+  console.log("Unhandled Rejection at:", promise, "reason:", reason);
 });
 
 process.on("uncaughtException", async (error) => {
-  console.log('Uncaught Exception:', error);
+  console.log("Uncaught Exception:", error);
 });
 
 process.on("uncaughtExceptionMonitor", async (error, origin) => {
-  console.log('Uncaught Exception Monitor:', error, origin);
+  console.log("Uncaught Exception Monitor:", error, origin);
 });
 
 (async () => {
