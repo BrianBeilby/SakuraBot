@@ -18,6 +18,13 @@ module.exports = {
       required: true,
     },
   ],
+  embed: new EmbedBuilder()
+    .setTitle("**Command: play**")
+    .setDescription("Plays a user specified song!")
+    .addFields(
+      { name: "**Usage**", value: "`/play <song name/url>`" },
+      { name: "**Example**", value: "`/play Mr. Rager`" }
+    ),
   // devOnly: Boolean,
   // testOnly: Boolean,
   // deleted: Boolean,

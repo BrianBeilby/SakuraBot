@@ -28,7 +28,7 @@ module.exports = async (client) => {
             continue;
           }
 
-          if (areCommandsDifferent(existingCommand, localCommand)) {
+          if (localCommand.edited && areCommandsDifferent(existingCommand, localCommand)) {
             await applicationCommands.edit(existingCommand.id, {
               description,
               options,
