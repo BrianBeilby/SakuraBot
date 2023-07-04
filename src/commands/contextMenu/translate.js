@@ -5,6 +5,11 @@ module.exports = {
   name: "Translate",
   type: "context-menu",
   edited: false,
+  embed: new EmbedBuilder()
+    .setTitle("**Command: translate**")
+    .setDescription(
+      "Context menu command to translate a message.\nSimply right click a message and click `Translate`\nto translate the message to English."
+    ),
   // devOnly: Boolean,
   // testOnly: Boolean,
   // options: Object[],

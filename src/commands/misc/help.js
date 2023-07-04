@@ -4,6 +4,9 @@ const {
   Interaction,
   EmbedBuilder,
   ApplicationCommandOptionType,
+  userMention,
+  ButtonBuilder,
+  ActionRowBuilder,
 } = require("discord.js");
 
 module.exports = {
@@ -11,6 +14,44 @@ module.exports = {
   description: "Provides information about the bot!",
   type: "slash",
   edited: false,
+  embedLevel1: new EmbedBuilder()
+    .setTitle("🌀 Help Inception - Level 1")
+    .setColor("#FFD700")
+    .setDescription("Welcome to Level 1 of the help inception menu!")
+    .addFields(
+      {
+        name: "\u200b",
+        value: "Level 2, To go deeper, click the button below!",
+      },
+      { name: "\u200b", value: "Visual, <a:loading_spinner:1234567890>" }
+    ),
+  embedLevel2: new EmbedBuilder()
+    .setTitle("🌀 Help Inception - Level 2")
+    .setColor("#FFD700")
+    .setDescription("Welcome to Level 2 of the help inception menu!")
+    .addFields({
+      name: "\u200b",
+      value: "Level 3, To go even deeper, click the button below!",
+    })
+    .setImage("https://example.com/animated_gif.gif"),
+  embedLevel3: new EmbedBuilder()
+    .setTitle("🌀 Help Inception - Level 3")
+    .setColor("#FFD700")
+    .setDescription(
+      "Congratulations, you've reached the deepest level of the help inception menu!"
+    )
+    .addFields({
+      name: "\u200b",
+      value: "Visual, ```\nYour ASCII animation here\n```",
+    }),
+  level1Button: new ButtonBuilder()
+    .setCustomId("level1")
+    .setLabel("Go to Level 2")
+    .setStyle("Primary"),
+  level2Button: new ButtonBuilder()
+    .setCustomId("level2")
+    .setLabel("Go to Level 3")
+    .setStyle("Primary"),
   options: [
     {
       name: "overview",
@@ -78,10 +119,45 @@ module.exports = {
         break;
 
       case "commands":
-          const command = interaction.options.getString("command");
-          const commands = getLocalCommands();
-          const commandInfo = commands.find((cmd) => cmd.name === command);
-          interaction.reply({ embeds: [commandInfo.embed], ephemeral: true });
+        const command = interaction.options.getString("command");
+        const commands = getLocalCommands();
+        const commandInfo = commands.find((cmd) => cmd.name === command);
+
+        if (!commandInfo) {
+          interaction.reply({
+            content: `The command \`${command}\` does not exist! Commands are case sensitive!`,
+            ephemeral: true,
+          });
+          return;
+        }
+
+        if (commandInfo.name === "help") {
+          const row1 = new ActionRowBuilder().addComponents(commandInfo.level1Button);
+          return interaction.reply({
+            embeds: [commandInfo.embedLevel1],
+            components: [row1],
+            ephemeral: true,
+          });
+        }
+
+        switch (commandInfo.name) {
+          case "balance":
+            commandInfo.embed.addFields({
+              name: "**Example**",
+              value: `/balance\n/balance ${userMention(interaction.member.id)}`,
+            });
+            break;
+          case "level":
+            commandInfo.embed.addFields({
+              name: "**Example**",
+              value: `/level\n/level ${userMention(interaction.member.id)}`,
+            });
+            break;
+          default:
+            break;
+        }
+
+        interaction.reply({ embeds: [commandInfo.embed], ephemeral: true });
         break;
 
       default:

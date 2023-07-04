@@ -3,6 +3,7 @@ const {
   Interaction,
   ApplicationCommandOptionType,
   AttachmentBuilder,
+  EmbedBuilder,
 } = require("discord.js");
 const Level = require("../../models/Level");
 const canvacord = require("canvacord");
@@ -69,7 +70,6 @@ module.exports = {
     const data = await rank.build();
     const attachment = new AttachmentBuilder(data);
     interaction.editReply({ files: [attachment] });
-
   },
 
   name: "level",
@@ -82,4 +82,10 @@ module.exports = {
       type: ApplicationCommandOptionType.Mentionable,
     },
   ],
+  embed: new EmbedBuilder()
+    .setTitle("**Command: level**")
+    .setDescription("Shows your/someone else's level!")
+    .addFields(
+      { name: "**Usage**", value: "`/level\n/level <user>`" },
+    ),
 };

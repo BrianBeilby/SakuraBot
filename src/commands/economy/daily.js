@@ -1,4 +1,4 @@
-const { Client, Interaction } = require("discord.js");
+const { Client, Interaction, EmbedBuilder } = require("discord.js");
 const User = require("../../models/User");
 
 const dailyAmount = 1000;
@@ -7,6 +7,15 @@ module.exports = {
   name: "daily",
   description: "Gives you your daily reward!",
   type: "slash",
+  embed: new EmbedBuilder()
+    .setTitle("**Command: daily**")
+    .setDescription(
+      "Gives you your daily 1000 points!\nWhat are they used for?\nAbsolutely nothing right now..."
+    )
+    .addFields(
+      { name: "**Usage**", value: "`/daily`" },
+      { name: "**Example**", value: "`/daily`" }
+    ),
 
   /**
    *

@@ -2,6 +2,7 @@ const {
   Client,
   Interaction,
   ApplicationCommandOptionType,
+  EmbedBuilder,
 } = require("discord.js");
 const User = require("../../models/User");
 
@@ -53,4 +54,10 @@ module.exports = {
       required: false,
     },
   ],
+  embed: new EmbedBuilder()
+    .setTitle("**Command: balance**")
+    .setDescription("Shows either your balance or someone else's balance!")
+    .addFields(
+      { name: "**Usage**", value: "`/balance\n/balance <user>`" },
+    ),
 };

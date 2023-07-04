@@ -2,7 +2,8 @@ const {
   ApplicationCommandOptionType,
   Client,
   Interaction,
-  PermissionFlagsBits
+  EmbedBuilder,
+  PermissionFlagsBits,
 } = require("discord.js");
 const AutoRole = require("../../models/AutoRole");
 
@@ -46,7 +47,7 @@ module.exports = {
         "Autorole has now been configured. To disable run `/autorole-disable`."
       );
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   },
 
@@ -61,7 +62,14 @@ module.exports = {
       required: true,
     },
   ],
+  embed: new EmbedBuilder()
+    .setTitle("**Command: autorole-configure**")
+    .setDescription("Configure the autorole for the server.\nNew members will be given the role specified.")
+    .addFields(
+      { name: "**Usage**", value: "`/autorole-configure <role>`" },
+      { name: "**Example**", value: "`/autorole-configure @Member`" }
+    ),
 
   permissionsRequired: [PermissionFlagsBits.Administrator],
-  botPermissions: [PermissionFlagsBits.ManageRoles]
+  botPermissions: [PermissionFlagsBits.ManageRoles],
 };
