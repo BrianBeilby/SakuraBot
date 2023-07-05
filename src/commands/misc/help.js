@@ -5,8 +5,6 @@ const {
   EmbedBuilder,
   ApplicationCommandOptionType,
   userMention,
-  ButtonBuilder,
-  ActionRowBuilder,
 } = require("discord.js");
 
 module.exports = {
@@ -14,44 +12,13 @@ module.exports = {
   description: "Provides information about the bot!",
   type: "slash",
   edited: false,
-  embedLevel1: new EmbedBuilder()
-    .setTitle("🌀 Help Inception - Level 1")
-    .setColor("#FFD700")
-    .setDescription("Welcome to Level 1 of the help inception menu!")
+  embed: new EmbedBuilder()
+    .setTitle("**Command: help**")
+    .setDescription("This is a command that supports two subcommands: `overview` and `commands`.\nThe `overview` subcommand shows useful information about the bot itself.\nThe `commands` subcommand shows information about a specific command.")
     .addFields(
-      {
-        name: "\u200b",
-        value: "Level 2, To go deeper, click the button below!",
-      },
-      { name: "\u200b", value: "Visual, <a:loading_spinner:1234567890>" }
+      { name: "**Usage**", value: "`/help overview\n/help commands <command>`" },
+      { name: "**Example**", value: "`/help overview\n/help commands play\n/help commands queue`" }
     ),
-  embedLevel2: new EmbedBuilder()
-    .setTitle("🌀 Help Inception - Level 2")
-    .setColor("#FFD700")
-    .setDescription("Welcome to Level 2 of the help inception menu!")
-    .addFields({
-      name: "\u200b",
-      value: "Level 3, To go even deeper, click the button below!",
-    })
-    .setImage("https://example.com/animated_gif.gif"),
-  embedLevel3: new EmbedBuilder()
-    .setTitle("🌀 Help Inception - Level 3")
-    .setColor("#FFD700")
-    .setDescription(
-      "Congratulations, you've reached the deepest level of the help inception menu!"
-    )
-    .addFields({
-      name: "\u200b",
-      value: "Visual, ```\nYour ASCII animation here\n```",
-    }),
-  level1Button: new ButtonBuilder()
-    .setCustomId("level1")
-    .setLabel("Go to Level 2")
-    .setStyle("Primary"),
-  level2Button: new ButtonBuilder()
-    .setCustomId("level2")
-    .setLabel("Go to Level 3")
-    .setStyle("Primary"),
   options: [
     {
       name: "overview",
@@ -129,15 +96,6 @@ module.exports = {
             ephemeral: true,
           });
           return;
-        }
-
-        if (commandInfo.name === "help") {
-          const row1 = new ActionRowBuilder().addComponents(commandInfo.level1Button);
-          return interaction.reply({
-            embeds: [commandInfo.embedLevel1],
-            components: [row1],
-            ephemeral: true,
-          });
         }
 
         switch (commandInfo.name) {
