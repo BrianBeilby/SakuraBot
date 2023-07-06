@@ -5,6 +5,13 @@ module.exports = {
   name: "pause",
   description: "Pauses the queue!",
   type: "slash",
+  embed: new EmbedBuilder()
+    .setTitle("**Slash Command: pause**")
+    .setDescription("Puts the music queue on pause.")
+    .addFields(
+      { name: "**Usage**", value: "`/pause`" },
+      { name: "**Example**", value: "`/pause`" }
+    ),
   // options: Object[],
   // devOnly: Boolean,
   // testOnly: Boolean,

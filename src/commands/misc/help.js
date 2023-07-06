@@ -13,11 +13,19 @@ module.exports = {
   type: "slash",
   edited: false,
   embed: new EmbedBuilder()
-    .setTitle("**Command: help**")
-    .setDescription("This is a command that supports two subcommands: `overview` and `commands`.\nThe `overview` subcommand shows useful information about the bot itself.\nThe `commands` subcommand shows information about a specific command.")
+    .setTitle("**Slash Command: help**")
+    .setDescription(
+      "This is a command that supports two subcommands: `overview` and `commands`.\nThe `overview` subcommand shows useful information about the bot itself.\nThe `commands` subcommand shows information about a specific command."
+    )
     .addFields(
-      { name: "**Usage**", value: "`/help overview\n/help commands <command>`" },
-      { name: "**Example**", value: "`/help overview\n/help commands play\n/help commands queue`" }
+      {
+        name: "**Usage**",
+        value: "`/help overview\n/help commands <command>`",
+      },
+      {
+        name: "**Example**",
+        value: "`/help overview\n/help commands play\n/help commands queue`",
+      }
     ),
   options: [
     {
@@ -109,6 +117,38 @@ module.exports = {
             commandInfo.embed.addFields({
               name: "**Example**",
               value: `/level\n/level ${userMention(interaction.member.id)}`,
+            });
+            break;
+          case "ban":
+            commandInfo.embed.addFields({
+              name: "**Example**",
+              value: `/ban ${userMention(
+                interaction.member.id
+              )}\n/ban ${userMention(interaction.member.id)} spam`,
+            });
+            break;
+          case "kick":
+            commandInfo.embed.addFields({
+              name: "**Example**",
+              value: `/kick ${userMention(
+                interaction.member.id
+              )}\n/kick ${userMention(interaction.member.id)} spam`,
+            });
+            break;
+          case "timeout":
+            commandInfo.embed.addFields({
+              name: "**Example**",
+              value: `/timeout ${userMention(
+                interaction.member.id
+              )} 1hr\n/timeout ${userMention(interaction.member.id)} 1day spam`,
+            });
+            break;
+          case "set-theme-song":
+            commandInfo.embed.addFields({
+              name: "**Example**",
+              value: `/set-theme-song ${userMention(
+                interaction.member.id
+              )} Mr. Rager`,
             });
             break;
           default:

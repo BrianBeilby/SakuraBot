@@ -6,6 +6,13 @@ module.exports = {
   name: "lyrics",
   description: "Displays the lyrics of the current song!",
   type: "slash",
+  embed: new EmbedBuilder()
+    .setTitle("**Slash Command: lyrics**")
+    .setDescription("Displays the lyrics of the current song playing.")
+    .addFields(
+      { name: "**Usage**", value: "`/lyrics`" },
+      { name: "**Example**", value: "`/lyrics`" }
+    ),
   // options: Object[],
   // devOnly: Boolean,
   // testOnly: Boolean,

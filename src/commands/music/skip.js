@@ -5,6 +5,13 @@ module.exports = {
   name: "skip",
   description: "Skips the current song!",
   type: "slash",
+  embed: new EmbedBuilder()
+    .setTitle("**Slash Command: skip**")
+    .setDescription("Skips the current song playing.")
+    .addFields(
+      { name: "**Usage**", value: "`/skip`" },
+      { name: "**Example**", value: "`/skip`" }
+    ),
   // options: Object[],
   // devOnly: Boolean,
   // testOnly: Boolean,

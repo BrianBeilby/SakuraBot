@@ -19,7 +19,7 @@ module.exports = {
     },
   ],
   embed: new EmbedBuilder()
-    .setTitle("**Command: play**")
+    .setTitle("**Slash Command: play**")
     .setDescription("Plays a user specified song!")
     .addFields(
       { name: "**Usage**", value: "`/play <song name/url>`" },

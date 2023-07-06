@@ -55,7 +55,7 @@ module.exports = {
     },
   ],
   embed: new EmbedBuilder()
-    .setTitle("**Command: balance**")
+    .setTitle("**Slash Command: balance**")
     .setDescription("Shows either your balance or someone else's balance!")
     .addFields(
       { name: "**Usage**", value: "`/balance\n/balance <user>`" },

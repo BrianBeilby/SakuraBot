@@ -8,7 +8,7 @@ module.exports = {
   description: "Gives you your daily reward!",
   type: "slash",
   embed: new EmbedBuilder()
-    .setTitle("**Command: daily**")
+    .setTitle("**Slash Command: daily**")
     .setDescription(
       "Gives you your daily 1000 points!\nWhat are they used for?\nAbsolutely nothing right now..."
     )

@@ -63,7 +63,7 @@ module.exports = {
     },
   ],
   embed: new EmbedBuilder()
-    .setTitle("**Command: autorole-configure**")
+    .setTitle("**Slash Command: autorole-configure**")
     .setDescription("Configure the autorole for the server.\nNew members will be given the role specified.")
     .addFields(
       { name: "**Usage**", value: "`/autorole-configure <role>`" },

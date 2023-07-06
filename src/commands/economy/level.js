@@ -83,7 +83,7 @@ module.exports = {
     },
   ],
   embed: new EmbedBuilder()
-    .setTitle("**Command: level**")
+    .setTitle("**Slash Command: level**")
     .setDescription("Shows your/someone else's level!")
     .addFields(
       { name: "**Usage**", value: "`/level\n/level <user>`" },

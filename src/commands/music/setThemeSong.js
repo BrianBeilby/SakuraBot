@@ -25,6 +25,12 @@ module.exports = {
       required: true,
     },
   ],
+  embed: new EmbedBuilder()
+    .setTitle("**Slash Command: set-theme-song**")
+    .setDescription("Sets the theme song for the specified user.\nUpon joining a voice channel,\nthe first 10 seconds of\nthis theme song will be queued.")
+    .addFields(
+      { name: "**Usage**", value: "`/set-theme-song <user> <song>`" },
+    ),
   // devOnly: Boolean,
   // testOnly: Boolean,
   // deleted: Boolean,

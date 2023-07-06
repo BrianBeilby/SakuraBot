@@ -5,6 +5,13 @@ module.exports = {
   name: "purge",
   description: "Removes all songs from the queue!",
   type: "slash",
+  embed: new EmbedBuilder()
+    .setTitle("**Slash Command: purge**")
+    .setDescription("Removes all songs from the music queue.")
+    .addFields(
+      { name: "**Usage**", value: "`/purge`" },
+      { name: "**Example**", value: "`/purge`" }
+    ),
   // options: Object[],
   // devOnly: Boolean,
   // testOnly: Boolean,

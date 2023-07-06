@@ -5,6 +5,13 @@ module.exports = {
   name: "resume",
   description: "Resumes the queue!",
   type: "slash",
+  embed: new EmbedBuilder()
+    .setTitle("**Slash Command: resume**")
+    .setDescription("Resumes the music queue.")
+    .addFields(
+      { name: "**Usage**", value: "`/resume`" },
+      { name: "**Example**", value: "`/resume`" }
+    ),
   // options: Object[],
   // devOnly: Boolean,
   // testOnly: Boolean,

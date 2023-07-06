@@ -3,6 +3,7 @@ const {
   Interaction,
   ApplicationCommandOptionType,
   PermissionFlagsBits,
+  EmbedBuilder,
 } = require("discord.js");
 
 const ms = require("ms");
@@ -111,6 +112,12 @@ module.exports = {
       type: ApplicationCommandOptionType.String,
     },
   ],
+  embed: new EmbedBuilder()
+    .setTitle("**Slash Command: timeout**")
+    .setDescription("Puts a specified user in timeout for a specified duration.\nAn optional reason can also be provided.")
+    .addFields(
+      { name: "**Usage**", value: "`/timeout <user> <duration> [reason]`" },
+    ),
 
   permissionsRequired: [PermissionFlagsBits.MuteMembers],
   botPermissions: [PermissionFlagsBits.MuteMembers],

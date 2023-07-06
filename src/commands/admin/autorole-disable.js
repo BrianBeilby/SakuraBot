@@ -37,7 +37,7 @@ module.exports = {
   description: "Disables the autorole feature for the server.",
   type: "slash",
   embed: new EmbedBuilder()
-    .setTitle("**Command: autorole-disable**")
+    .setTitle("**Slash Command: autorole-disable**")
     .setDescription(
       "Disables the autorole feature for the server.\nWhen disabled, new members will not be given a role."
     )

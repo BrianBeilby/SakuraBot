@@ -1,7 +1,16 @@
+const { EmbedBuilder } = require("discord.js");
+
 module.exports = {
   name: "ping",
   description: "Replies with the bot's ping!",
   type: "slash",
+  embed: new EmbedBuilder()
+    .setTitle("**Slash Command: ping**")
+    .setDescription("Shows the bots latency time.")
+    .addFields(
+      { name: "**Usage**", value: "`/ping`" },
+      { name: "**Example**", value: "`/ping`" }
+    ),
   // devOnly: Boolean,
   // testOnly: Boolean,
   // options: Object[],

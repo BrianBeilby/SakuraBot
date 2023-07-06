@@ -5,6 +5,13 @@ module.exports = {
   name: "toggle-theme-song",
   description: "Toggles the user's theme song feature between on and off!",
   type: "slash",
+  embed: new EmbedBuilder()
+    .setTitle("**Slash Command: toggle-theme-song**")
+    .setDescription("Toggles the status of the your theme song feature.")
+    .addFields(
+      { name: "**Usage**", value: "`/toggle-theme-song`" },
+      { name: "**Example**", value: "`/toggle-theme-song`" }
+    ),
   // options: Object[],
   // devOnly: Boolean,
   // testOnly: Boolean,
@@ -42,7 +49,7 @@ module.exports = {
         )
         .setColor("Green");
 
-        return interaction.editReply({ embeds: [embed] });
+      return interaction.editReply({ embeds: [embed] });
     }
   },
 };

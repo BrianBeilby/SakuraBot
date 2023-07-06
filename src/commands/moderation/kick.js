@@ -1,4 +1,4 @@
-const { Client, Interaction, ApplicationCommandOptionType, PermissionFlagsBits } = require('discord.js');
+const { Client, Interaction, ApplicationCommandOptionType, PermissionFlagsBits, EmbedBuilder } = require('discord.js');
 
 module.exports = {
     /**
@@ -66,6 +66,12 @@ module.exports = {
             type: ApplicationCommandOptionType.String,
         }
     ],
+    embed: new EmbedBuilder()
+    .setTitle("**Slash Command: kick**")
+    .setDescription("Kicks a specified user from the server.\nAn optional reason can also be provided.")
+    .addFields(
+      { name: "**Usage**", value: "`/kick <user> [reason]`" },
+    ),
 
     permissionsRequired: [PermissionFlagsBits.KickMembers],
     botPermissions: [PermissionFlagsBits.KickMembers],

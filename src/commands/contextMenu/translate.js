@@ -1,4 +1,9 @@
-const { Client, Interaction, EmbedBuilder } = require("discord.js");
+const {
+  Client,
+  Interaction,
+  EmbedBuilder,
+  PermissionFlagsBits,
+} = require("discord.js");
 const translate = require("@iamtraction/google-translate");
 
 module.exports = {
@@ -6,7 +11,7 @@ module.exports = {
   type: "context-menu",
   edited: false,
   embed: new EmbedBuilder()
-    .setTitle("**Command: translate**")
+    .setTitle("**Context Menu Command: translate**")
     .setDescription(
       "Context menu command to translate a message.\nSimply right click a message and click `Translate`\nto translate the message to English."
     ),

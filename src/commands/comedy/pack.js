@@ -6,7 +6,7 @@ module.exports = {
   description: "Boutta pack you real quick!",
   type: "slash",
   embed: new EmbedBuilder()
-    .setTitle("**Command: pack**")
+    .setTitle("**Slash Command: pack**")
     .setDescription("Generates a random insult.")
     .addFields(
       { name: "**Usage**", value: "`/pack`" },
