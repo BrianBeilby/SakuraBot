@@ -42,25 +42,23 @@ module.exports = {
       return interaction.editReply("Failed to connect to your channel");
     }
 
-    // // initialize receiver stream
-    // const stream = queue.voiceReceiver.recordUser(interaction.member.id, {
-    //   mode: "pcm", // record in pcm format
-    //   end: EndBehaviorType.AfterSilence, // stop recording once user stops talking
-    // });
+    // initialize receiver stream
+    const stream = queue.voiceReceiver.recordUser(interaction.member.id, {
+      mode: "pcm", // record in pcm format
+      end: EndBehaviorType.AfterSilence, // stop recording once user stops talking
+    });
 
-    // const writer = stream.pipe(
-    //   createWriteStream(`./assets/audio/recording-${interaction.member.id}.pcm`)
-    // ); // write the stream to a file
+    const writer = stream.pipe(
+      createWriteStream(`./assets/audio/recording-${interaction.member.id}.pcm`)
+    ); // write the stream to a file
 
-    // writer.once("finish", () => {
-    //   if (interaction.isRepliable())
-    //     interaction.editReply(`Finished writing audio!`);
-    //   //queue.delete(); // cleanup
-    //   const resource = createAudioResource(`./assets/audio/recording-${interaction.member.id}.pcm`);
-    //   queue.node.playRaw(resource);
-    // });
+    writer.once("finish", async () => {
+      if (interaction.isRepliable())
+        interaction.editReply(`Finished writing audio!`);
 
-    const resource = createAudioResource(path.join(__dirname, 'recording-136273361910235136.pcm'));
-    queue.node.playRaw(resource);
+      const resource = createAudioResource(path.join(__dirname, `../../assets/audio/recording-${interaction.member.id}.pcm`));
+      await queue.node.playRaw(createAudioResource(`./assets/audio/recording-${interaction.member.id}.pcm`)); // play the audio
+      //queue.delete(); // cleanup
+    });
   },
 };
