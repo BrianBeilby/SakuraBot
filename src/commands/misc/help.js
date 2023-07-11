@@ -46,6 +46,11 @@ module.exports = {
         },
       ],
     },
+    {
+      name: "list",
+      description: "Lists the names of all commands!",
+      type: ApplicationCommandOptionType.Subcommand,
+    },
   ],
   // devOnly: Boolean,
   // testOnly: Boolean,
@@ -60,6 +65,7 @@ module.exports = {
   callback: async (client, interaction) => {
     const subcommand = interaction.options.getSubcommand();
     const command = interaction.options.getString("command");
+    const commands = getLocalCommands();
 
     switch (subcommand) {
       case "overview":
@@ -94,8 +100,6 @@ module.exports = {
         break;
 
       case "commands":
-        const command = interaction.options.getString("command");
-        const commands = getLocalCommands();
         const commandInfo = commands.find((cmd) => cmd.name === command);
 
         if (!commandInfo) {
@@ -158,6 +162,24 @@ module.exports = {
         interaction.reply({ embeds: [commandInfo.embed], ephemeral: true });
         break;
 
+      case "list":
+        const commandNames = commands.map((cmd) => `**${cmd.name}**`);
+        const commandDescriptions = commands.map((cmd) => cmd.description);
+
+        const embed2 = new EmbedBuilder().setTitle(`📜 **|** List of Commands:`);
+
+        // Add a single field with all the command names
+        embed2.addFields({ name: "Commands", value: commandNames.join(":\n"), inline: true });
+
+        // Add a single field with all the command descriptions
+        embed2.addFields({
+          name: "Descriptions",
+          value: commandDescriptions.join("\n"),
+          inline: true,
+        });
+
+        interaction.reply({ embeds: [embed2], ephemeral: true });
+        break;
       default:
         // Code for handling an invalid subcommand
         break;
