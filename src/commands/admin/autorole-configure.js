@@ -67,7 +67,6 @@ module.exports = {
     .setDescription("Configure the autorole for the server.\nNew members will be given the role specified.")
     .addFields(
       { name: "**Usage**", value: "`/autorole-configure <role>`" },
-      { name: "**Example**", value: "`/autorole-configure @Member`" }
     ),
 
   permissionsRequired: [PermissionFlagsBits.Administrator],

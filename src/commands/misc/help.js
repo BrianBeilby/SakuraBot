@@ -155,6 +155,14 @@ module.exports = {
               )} Mr. Rager`,
             });
             break;
+          case "autorole-configure":
+            commandInfo.embed.addFields({
+              name: "**Example**",
+              value: `/autorole-configure ${userMention(
+                interaction.member.id
+              )}`,
+            });
+            break;
           default:
             break;
         }
@@ -166,10 +174,16 @@ module.exports = {
         const commandNames = commands.map((cmd) => `**${cmd.name}**`);
         const commandDescriptions = commands.map((cmd) => cmd.description);
 
-        const embed2 = new EmbedBuilder().setTitle(`📜 **|** List of Commands:`);
+        const embed2 = new EmbedBuilder().setTitle(
+          `📜 **|** List of Commands:`
+        );
 
         // Add a single field with all the command names
-        embed2.addFields({ name: "Commands", value: commandNames.join(":\n"), inline: true });
+        embed2.addFields({
+          name: "Commands",
+          value: commandNames.join(":\n"),
+          inline: true,
+        });
 
         // Add a single field with all the command descriptions
         embed2.addFields({
