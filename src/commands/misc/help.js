@@ -83,7 +83,7 @@ module.exports = {
           .addFields(
             {
               name: "Commands",
-              value: `To get help with commands, use \`/help commands\`!`,
+              value: `To get help with commands, use \`/help commands\`!\nTo get a list of all commands, use \`/help list\`!`,
             },
             { name: "Support", value: `To get support, just ask Brian!` },
             {
