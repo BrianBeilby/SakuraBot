@@ -1,13 +1,9 @@
-const {
-  Client,
-  Interaction,
-  EmbedBuilder,
-  PermissionFlagsBits,
-} = require("discord.js");
+const { Client, Interaction, EmbedBuilder } = require("discord.js");
 const translate = require("@iamtraction/google-translate");
 
 module.exports = {
   name: "Translate",
+  description: "Translate a sent message to English!",
   type: "context-menu",
   edited: false,
   embed: new EmbedBuilder()
@@ -26,24 +22,36 @@ module.exports = {
    * @param {Interaction} interaction
    */
   callback: async (client, interaction) => {
+    await interaction.deferReply();
+
     const targetMessage = interaction.targetMessage;
 
-    const translated = await translate(targetMessage.content, { to: "en" });
+    try {
+      const translated = await translate(targetMessage.content, { to: "en" });
 
-    const embed = new EmbedBuilder()
-      .setTitle(`🔎 Translate Successful`)
-      .setColor("Green")
-      .addFields({
-        name: "Original Text",
-        value: `\`\`\`${targetMessage.content}\`\`\``,
-        inline: false,
-      })
-      .addFields({
-        name: "Translated Text",
-        value: `\`\`\`${translated.text}\`\`\``,
-        inline: false,
-      });
+      const embed = new EmbedBuilder()
+        .setTitle(`🔎 Translate Successful`)
+        .setColor("Green")
+        .addFields({
+          name: "Original Text",
+          value: `\`\`\`${targetMessage.content}\`\`\``,
+          inline: false,
+        })
+        .addFields({
+          name: "Translated Text",
+          value: `\`\`\`${translated.text}\`\`\``,
+          inline: false,
+        });
 
-    interaction.reply({ embeds: [embed] });
+      interaction.editReply({ embeds: [embed] });
+    } catch (error) {
+      const errorEmbed = new EmbedBuilder()
+        .setTitle(`❌ Translation Error`)
+        .setColor("Red")
+        .setDescription(
+          `An error occurred while translating the text: \`${error.message}\``
+        );
+      interaction.editReply({ embeds: [errorEmbed] });
+    }
   },
 };
