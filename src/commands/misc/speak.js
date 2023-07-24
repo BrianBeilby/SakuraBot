@@ -2,9 +2,13 @@ const {
   EmbedBuilder,
   Client,
   Interaction,
-  ApplicationCommandOptionType,
+  ActionRowBuilder,
+  ModalBuilder,
+  TextInputBuilder,
+  TextInputStyle,
 } = require("discord.js");
 const langdetect = require("langdetect");
+const translate = require("@iamtraction/google-translate");
 const {
   createAudioPlayer,
   createAudioResource,
@@ -17,20 +21,12 @@ module.exports = {
   name: "speak",
   description: "Speak a message!",
   type: "slash",
-  options: [
-    {
-      name: "message",
-      description: "The message you want spoken aloud.",
-      type: ApplicationCommandOptionType.String,
-      required: true,
-    },
-  ],
   embed: new EmbedBuilder()
-    .setTitle("**Slash Command: ping**")
-    .setDescription("Shows the bots latency time.")
+    .setTitle("**Slash Command: speak**")
+    .setDescription("Send a TTS(Text to Speech) message.\nThe spoken message will be played in the voice channel you are in.\nInput your desired message into the modal that appears after\nexecuting the command.")
     .addFields(
-      { name: "**Usage**", value: "`/ping`" },
-      { name: "**Example**", value: "`/ping`" }
+      { name: "**Usage**", value: "`/speak`" },
+      { name: "**Example**", value: "`/speak`" }
     ),
   // devOnly: Boolean,
   // testOnly: Boolean,
@@ -43,62 +39,93 @@ module.exports = {
    * @param {Interaction} interaction
    */
   callback: async (client, interaction) => {
-    await interaction.deferReply();
+    const modal = new ModalBuilder()
+      .setCustomId(`ttsModal-${interaction.user.id}`)
+      .setTitle("Text to Speech Input");
 
-    try {
-      const userMessage = interaction.options.getString("message", true);
-      const lang = langdetect.detect(userMessage);
-      const gtts = require("node-gtts")(lang[0].lang);
+    const textInput = new TextInputBuilder()
+      .setCustomId("textInput")
+      .setLabel("Enter your message here.")
+      .setPlaceholder("Enter your message here.")
+      .setStyle(TextInputStyle.Paragraph)
+      .setRequired(true);
 
-      const stream = gtts.stream(userMessage);
+    const actionRow = new ActionRowBuilder().addComponents(textInput);
 
-      const resource = createAudioResource(stream, {
-        inputType: StreamType.Arbitrary,
+    modal.addComponents(actionRow);
+    await interaction.showModal(modal);
+
+    const filter = (interaction) =>
+      interaction.customId === `ttsModal-${interaction.user.id}`;
+
+    interaction
+      .awaitModalSubmit({ filter, time: 60000 })
+      .then(async (modalInteraction) => {
+        const userMessage =
+          modalInteraction.fields.getTextInputValue("textInput");
+        const lang = langdetect.detect(userMessage);
+        if (!lang) return modalInteraction.reply("Language not detected!");
+
+        const gtts = require("node-gtts")(lang[0].lang);
+
+        const stream = gtts.stream(userMessage);
+
+        const resource = createAudioResource(stream, {
+          inputType: StreamType.Arbitrary,
+        });
+
+        const player = createAudioPlayer();
+
+        player.play(resource);
+
+        player.on(AudioPlayerStatus.Idle, () => {
+          connection.destroy();
+        });
+
+        player.on("error", (error) => {
+          console.error(
+            `Error: ${error.message} with resource ${error.resource.metadata}`
+          );
+          throw error;
+        });
+
+        const channel = interaction.member.voice.channel;
+        if (!channel) {
+          return interaction.reply("You are not connected to a voice channel!");
+        }
+
+        const connection = joinVoiceChannel({
+          channelId: channel.id,
+          guildId: channel.guild.id,
+          adapterCreator: channel.guild.voiceAdapterCreator,
+        });
+
+        connection.subscribe(player);
+
+        const translated = await translate(userMessage, { to: "en" });
+
+        const embed = new EmbedBuilder()
+          .setTitle(`🔊 **|** Text to Speech Successful!`)
+          .setColor("Green")
+          .addFields({
+            name: "Original Text",
+            value: `\`\`\`${userMessage}\`\`\``,
+            inline: false,
+          });
+
+        if (lang[0].lang !== "en") {
+          embed.addFields({
+            name: "Translated Text",
+            value: `\`\`\`${translated.text}\`\`\``,
+            inline: false,
+          });
+        }
+
+        // Send a success message after the player is subscribed
+        modalInteraction.reply({ embeds: [embed] });
+      })
+      .catch((error) => {
+        console.error(error);
       });
-
-      const player = createAudioPlayer();
-
-      player.play(resource);
-
-      player.on(AudioPlayerStatus.Idle, () => {
-        connection.destroy();
-      });
-
-      player.on("error", (error) => {
-        console.error(
-          `Error: ${error.message} with resource ${error.resource.metadata}`
-        );
-        throw error;
-      });
-
-      const channel = interaction.member.voice.channel;
-      if (!channel) {
-        return interaction.reply("You are not connected to a voice channel!");
-      }
-
-      const connection = joinVoiceChannel({
-        channelId: channel.id,
-        guildId: channel.guild.id,
-        adapterCreator: channel.guild.voiceAdapterCreator,
-      });
-
-      connection.subscribe(player);
-
-      const embed = new EmbedBuilder()
-        .setDescription(
-          `✅ **|** The message was successfully spoken in the voice channel!`
-        )
-        .setColor("Green");
-
-      // Send a success message after the player is subscribed
-      interaction.editReply({ embeds: [embed] });
-    } catch (error) {
-      const embed = new EmbedBuilder()
-        .setDescription(`😡 **|** Something went wrong: ${error}`)
-        .setColor("Red");
-
-      // Send an error message if something goes wrong
-      interaction.editReply({ embeds: [embed] });
-    }
   },
 };
