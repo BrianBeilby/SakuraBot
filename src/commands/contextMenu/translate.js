@@ -1,4 +1,10 @@
-const { Client, Interaction, EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require("discord.js");
+const {
+  Client,
+  Interaction,
+  EmbedBuilder,
+  ActionRowBuilder,
+  ButtonBuilder,
+} = require("discord.js");
 const translate = require("@iamtraction/google-translate");
 
 module.exports = {
@@ -43,7 +49,7 @@ module.exports = {
           inline: false,
         });
 
-        const speakOriginal = new ButtonBuilder()
+      const speakOriginal = new ButtonBuilder()
         .setCustomId("speakOriginal")
         .setLabel("🔊 Original")
         .setStyle("Primary");

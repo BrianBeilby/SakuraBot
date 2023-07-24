@@ -6,6 +6,7 @@ const {
   ModalBuilder,
   TextInputBuilder,
   TextInputStyle,
+  ButtonBuilder,
 } = require("discord.js");
 const langdetect = require("langdetect");
 const translate = require("@iamtraction/google-translate");
@@ -23,7 +24,9 @@ module.exports = {
   type: "slash",
   embed: new EmbedBuilder()
     .setTitle("**Slash Command: speak**")
-    .setDescription("Send a TTS(Text to Speech) message.\nThe spoken message will be played in the voice channel you are in.\nInput your desired message into the modal that appears after\nexecuting the command.")
+    .setDescription(
+      "Send a TTS(Text to Speech) message.\nThe spoken message will be played in the voice channel you are in.\nInput your desired message into the modal that appears after\nexecuting the command."
+    )
     .addFields(
       { name: "**Usage**", value: "`/speak`" },
       { name: "**Example**", value: "`/speak`" }
@@ -111,16 +114,30 @@ module.exports = {
             inline: false,
           });
 
+        const speakOriginal = new ButtonBuilder()
+          .setCustomId("speakOriginal")
+          .setLabel("🔊 Original")
+          .setStyle("Primary");
+
+        const speakTranslated = new ButtonBuilder()
+          .setCustomId("speakTranslated")
+          .setLabel("🔊 Translated")
+          .setStyle("Primary");
+
+        const row = new ActionRowBuilder().addComponents(speakOriginal);
+
         if (lang[0].lang !== "en") {
           embed.addFields({
             name: "Translated Text",
             value: `\`\`\`${translated.text}\`\`\``,
             inline: false,
           });
+
+          row.addComponents(speakTranslated);
         }
 
         // Send a success message after the player is subscribed
-        modalInteraction.reply({ embeds: [embed] });
+        modalInteraction.reply({ embeds: [embed], components: [row] });
       })
       .catch((error) => {
         console.error(error);
