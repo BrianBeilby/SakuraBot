@@ -67,7 +67,6 @@ module.exports = {
         if (!lang) return modalInteraction.reply("Language not detected!");
 
         const gtts = require("node-gtts")(lang[0].lang);
-
         const stream = gtts.stream(userMessage);
 
         const resource = createAudioResource(stream, {
@@ -75,7 +74,6 @@ module.exports = {
         });
 
         const player = createAudioPlayer();
-
         player.play(resource);
 
         player.on(AudioPlayerStatus.Idle, () => {

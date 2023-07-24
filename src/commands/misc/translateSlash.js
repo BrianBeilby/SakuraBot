@@ -3,6 +3,8 @@ const {
   ApplicationCommandOptionType,
   Client,
   Interaction,
+  ActionRowBuilder,
+  ButtonBuilder,
 } = require("discord.js");
 const translate = require("@iamtraction/google-translate");
 
@@ -65,7 +67,22 @@ module.exports = {
           inline: false,
         });
 
-      interaction.editReply({ embeds: [embed] });
+      const speakOriginal = new ButtonBuilder()
+        .setCustomId("speakOriginal")
+        .setLabel("🔊 Original")
+        .setStyle("Primary");
+
+      const speakTranslated = new ButtonBuilder()
+        .setCustomId("speakTranslated")
+        .setLabel("🔊 Translated")
+        .setStyle("Primary");
+
+      const row = new ActionRowBuilder().addComponents(
+        speakOriginal,
+        speakTranslated
+      );
+
+      interaction.editReply({ embeds: [embed], components: [row] });
     } catch (error) {
       const errorEmbed = new EmbedBuilder()
         .setTitle(`❌ Translation Error`)

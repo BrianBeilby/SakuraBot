@@ -20,11 +20,11 @@ module.exports = {
     .addFields(
       {
         name: "**Usage**",
-        value: "`/help overview\n/help commands <command>`",
+        value: "`/help overview\n/help commands <command>\n/help list`",
       },
       {
         name: "**Example**",
-        value: "`/help overview\n/help commands play\n/help commands queue`",
+        value: "`/help overview\n/help commands play\n/help commands queue\n/help list`",
       }
     ),
   options: [
