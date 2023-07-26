@@ -78,12 +78,18 @@ module.exports = async (client, interaction) => {
       inputType: StreamType.Arbitrary,
     });
 
+    const channel = interaction.member.voice.channel;
+    if (!channel) {
+      return interaction.reply("You are not connected to a voice channel!");
+    }
+
+    const queue = useQueue(channel.guild.id);
+    if (queue) {
+      queue.delete();
+    }
+
     const player = createAudioPlayer();
     player.play(resource);
-
-    player.on(AudioPlayerStatus.Idle, () => {
-      connection.destroy();
-    });
 
     player.on("error", (error) => {
       console.error(
@@ -91,11 +97,6 @@ module.exports = async (client, interaction) => {
       );
       throw error;
     });
-
-    const channel = interaction.member.voice.channel;
-    if (!channel) {
-      return interaction.reply("You are not connected to a voice channel!");
-    }
 
     const connection = joinVoiceChannel({
       channelId: channel.id,
@@ -125,12 +126,18 @@ module.exports = async (client, interaction) => {
       inputType: StreamType.Arbitrary,
     });
 
+    const channel = interaction.member.voice.channel;
+    if (!channel) {
+      return interaction.reply("You are not connected to a voice channel!");
+    }
+
+    const queue = useQueue(channel.guild.id);
+    if (queue) {
+      queue.delete();
+    }
+
     const player = createAudioPlayer();
     player.play(resource);
-
-    player.on(AudioPlayerStatus.Idle, () => {
-      connection.destroy();
-    });
 
     player.on("error", (error) => {
       console.error(
@@ -138,11 +145,6 @@ module.exports = async (client, interaction) => {
       );
       throw error;
     });
-
-    const channel = interaction.member.voice.channel;
-    if (!channel) {
-      return interaction.reply("You are not connected to a voice channel!");
-    }
 
     const connection = joinVoiceChannel({
       channelId: channel.id,
