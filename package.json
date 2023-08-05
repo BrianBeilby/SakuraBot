@@ -39,6 +39,7 @@
     "openai": "^3.3.0",
     "pretty-ms": "^8.0.0",
     "replicate": "^0.12.3",
+    "unofficial-jisho-api": "^2.3.2",
     "ytdl-core": "^4.11.4"
   },
   "devDependencies": {
