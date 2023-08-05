@@ -22,11 +22,11 @@ module.exports = {
     },
   ],
   embed: new EmbedBuilder()
-    .setTitle("**Slash Command: ping**")
-    .setDescription("Shows the bots latency time.")
+    .setTitle("**Slash Command: japanese-sentence**")
+    .setDescription("Generate a random Japanese sentence given a Kanji character.\nThis command uses the unofficial Jisho API\nto generate a random Japanese sentence.")
     .addFields(
-      { name: "**Usage**", value: "`/ping`" },
-      { name: "**Example**", value: "`/ping`" }
+      { name: "**Usage**", value: "`/japanese-sentence <character>`" },
+      { name: "**Example**", value: "`/japanese-sentence 愛`" }
     ),
   // devOnly: Boolean,
   // testOnly: Boolean,
