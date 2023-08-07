@@ -30,7 +30,6 @@ module.exports = {
     ),
   // devOnly: Boolean,
   // testOnly: Boolean,
-  // options: Object[],
   // deleted: Boolean,
 
   /**
