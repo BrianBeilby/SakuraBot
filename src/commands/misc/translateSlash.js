@@ -54,7 +54,7 @@ module.exports = {
       const translated = await translate(targetMessage, { to: targetLanguage });
 
       const embed = new EmbedBuilder()
-        .setTitle(`🔎 Translate Successful`)
+        .setTitle(`🔎 **|** Translate Successful`)
         .setColor("Green")
         .addFields({
           name: "Original Text",
