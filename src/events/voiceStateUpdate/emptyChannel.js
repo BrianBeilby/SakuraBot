@@ -31,7 +31,7 @@ module.exports = async (client, voiceStates) => {
 
           queue.metadata.channel.send({ embeds: [embed] });
           queue.delete();
-        }, 60000);
+        }, 15000);
       } else if (
         queue &&
         newState.channelId &&
